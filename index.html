@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Sharing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>File Sharing</h1>
+        <div id="tabs">
+            <button id="defaultOpen" class="tablinks" onclick="openTab(event, 'upload')">Upload</button>
+            <button class="tablinks" onclick="openTab(event, 'files')">Files</button>
+        </div>
+
+        <div id="upload" class="tabcontent">
+            <input type="file" id="fileInput">
+            <button id="uploadButton">Upload</button>
+            <div id="progress"></div>
+            <div id="fileURL"></div>
+        </div>
+
+        <div id="files" class="tabcontent">
+            <ul id="fileList"></ul>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

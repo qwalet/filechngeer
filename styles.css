@@ -1,0 +1,23 @@
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+#tabs {
+    margin-bottom: 20px;
+}
+
+.tabcontent {
+    display: none;
+}
+
+#fileList {
+    list-style-type: none;
+    padding: 0;
+}
+
+#fileList li {
+    margin-bottom: 10px;
+}
