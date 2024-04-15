@@ -9,8 +9,10 @@ function uploadFile() {
     xhr.open('POST', 'upload.php', true);
 
     xhr.upload.onprogress = function(event) {
-        var progress = Math.round((event.loaded / event.total) * 100);
-        document.getElementById('progress').innerHTML = 'Upload Progress: ' + progress + '%';
+        if (event.lengthComputable) {
+            var percentComplete = (event.loaded / event.total) * 100;
+            document.getElementById('progress').innerHTML = 'Upload Progress: ' + percentComplete.toFixed(2) + '%';
+        }
     };
 
     xhr.onload = function() {
@@ -28,21 +30,6 @@ function uploadFile() {
 
 // Привязка функции uploadFile() к кнопке "Upload"
 document.getElementById('uploadButton').addEventListener('click', uploadFile);
-
-// Функция для открытия вкладки
-function openTab(evt, tabName) {
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-    }
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-    document.getElementById(tabName).style.display = "block";
-    evt.currentTarget.className += " active";
-}
 
 // Функция для загрузки списка файлов
 function loadFileList() {
@@ -64,29 +51,3 @@ function loadFileList() {
 
     xhr.send();
 }
-
-// Функция для скачивания файла
-function downloadFile(fileName) {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'download.php?file=' + encodeURIComponent(fileName), true);
-    xhr.responseType = 'blob';
-
-    xhr.onload = function() {
-        if (xhr.status === 200) {
-            var blob = new Blob([xhr.response]);
-            var downloadLink = document.createElement('a');
-            downloadLink.href = window.URL.createObjectURL(blob);
-            downloadLink.download = fileName;
-            document.body.appendChild(downloadLink);
-            downloadLink.click();
-            document.body.removeChild(downloadLink);
-        } else {
-            alert('Error downloading file');
-        }
-    };
-
-    xhr.send();
-}
-
-// Вызов функции открытия вкладки Upload по умолчанию при загрузке страницы
-document.getElementById("defaultOpen").click();
